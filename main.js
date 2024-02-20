@@ -2,7 +2,7 @@ const API_KEY  = `f7a97cd3e5d84bf69e1ae769f155b88c`;
 let news = []
 const getLatestNews = async () => {
     const url = new URL(
-        `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
+        `https://apissss.netlify.app//top-headlines?country=us&apiKey=${API_KEY}`
     );
     const response = await fetch(url);
         const data = await response.json();
