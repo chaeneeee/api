@@ -21,7 +21,7 @@ const closeNav = () => {
 
 const getLatestNews = async () => {
     const url = new URL(
-        ` https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`
+        ` https://apissss.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`
     
     );
     const response = await fetch(url);
