@@ -2,7 +2,7 @@ const API_KEY = `f7a97cd3e5d84bf69e1ae769f155b88c`;
 let newsList = [];
 const getLatestNews = async () => {
     const url = new URL(
-        ` https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
+        ` https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`
     
     );
     const response = await fetch(url);
@@ -12,9 +12,9 @@ const getLatestNews = async () => {
     // 우리가 보여줄 건 뉴스리스트  뉴스리스트가 확정되어야지 랜더해야한다. 그래서 newsList 뒤에 랜더
     
     console.log("ddd", newsList);
-
-
+    
 }
+    getLatestNews();
 
 const render = () => {
     const newsHTML = newsList.map(
@@ -33,7 +33,10 @@ const render = () => {
         </div>s
     </div>
 </div>`
-    );
+    ).join("");
+    // join("") 그러면 arr 문자열에 포함된 " "를 빼준다 
+        console.log("html",newsHTML)
+
 
 //     // const render()=> { const newsHTML =`
 //     //  newsHTML = newList.map(news=>` <div class="row news">
@@ -74,7 +77,7 @@ const openSearchBox = () => {
         inputArea.style.display = "inline"
     };
 };
-
+openSearchBox()
 
 
 // none 과 inline 바뀌도 ok 
@@ -88,7 +91,7 @@ const openSearchBox = () => {
 // function addSearchLine () {
 
 // }
-// 이렇기 하지말고 간단하게 hrml 에 버튼에 onclick 주기 
+// 이렇기 하지말고 간단하게 html 에 버튼에 onclick 주기 
 // <panding >이라고 뜸 아직 데이터가 안왔다는 뜻 
 // URL을 인스턴스라고 부르는데 URL 관련 많은 작업들을 할 수 있다.
 // 객체로 변환되어 링크, 쿼리, 앤드라인 ,사이즈 등을 볼 수 있다  
