@@ -55,7 +55,7 @@ const closeNav = () => {
 
 const getLatestNews = async () => {
     url = new URL(
-        `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`
+        `https://apissss.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`
     
     );
 
@@ -70,7 +70,7 @@ const getNewsByCategory= async (event)=>{
     // 유저가 무슨 카테고리를 눌렀는지 알기위해 만드는 것 밑에 줄 
     const category = event.target.textContent.toLowerCase(); //클릭이벤트시 카테고리를 소문자로 만들어줌 컴퓨터는 소문자 대문자 구별 꼭 해야해서 직접 바꾸기보단 클릭 후 바로 바뀌게 이 함수 쓴다. 
    
-    url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
+    url = new URL(`https://apissss.netlify.app/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
     );
    getNews();
 
@@ -81,7 +81,7 @@ const getNewsByCategory= async (event)=>{
 
 const getNewsByKeyword = async (event)=> {
     const keyword = document.getElementById("search-input").value;
-    url = new URL (`https://newsapi.org/v2/top-headlines?country=kr&q=${keyword}&apiKey=${API_KEY}`)
+    url = new URL (`https://apissss.netlify.app/top-headlines?country=kr&q=${keyword}&apiKey=${API_KEY}`)
     getNews();
 
 }
