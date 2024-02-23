@@ -10,7 +10,7 @@ menus.forEach(menu=>menu.addEventListener("click",(event)=>getNewsByCategory(eve
 console.log("ggg", menus)
 
 let url = new URL(
-    `https://apissss.netlify.app//top-headlines?country=kr&apiKey=${API_KEY}`)
+    `https://apissss.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`)
 
 const getNews = async() => {
     try {
