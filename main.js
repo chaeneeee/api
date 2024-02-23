@@ -1,3 +1,4 @@
+
 const API_KEY = `f7a97cd3e5d84bf69e1ae769f155b88c`;
 let newsList = [];
 const menus = document.querySelectorAll(".menus button") //menus 안에 있는 버튼 
@@ -7,6 +8,39 @@ const menus = document.querySelectorAll(".menus button") //menus 안에 있는 �
 menus.forEach(menu=>menu.addEventListener("click",(event)=>getNewsByCategory(event)))
 // foreach 배열함수 
 console.log("ggg", menus)
+
+let url = new URL(
+    `https://apissss.netlify.app//top-headlines?country=kr&apiKey=${API_KEY}`)
+
+const getNews = async() => {
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if( response.status=== 200){
+                if(data.articles.length===0){ //기사 길이가 0이니 아무것도 안 뜬 것 
+                        throw new Error("No result for this search")
+                }
+            newsList = data.articles;
+            render();
+        } else {
+            throw new Error(data.message);
+        }
+        
+        //error 를 일으켜본다 ex) api키 입력 잘못하기 
+        // console.log("rrr", response) 해서 error 코드 뭐나오는지확인 401 나옴
+        // error 일때 data는 어떻게 나오는지 console.log("ddd", data) 해서 라이브 서버에서 메시지보기
+        // your API key is invaild or incorrect 라고 뜬다/
+
+        //만약 api가 이상해서 작동이 안된거라면 error 뜬게 맞다 근데 검색 아무렇게나해서 뉴스 결과가 
+        // 없음을 나타낼땐 error 가뜬게 아니다. 그럴 때는 어떻게 해야할까?
+
+
+    } catch(error){
+        errorRender(error.message)
+    }
+
+}
+
 
 // 사이드메뉴 만들기
 const openNav =() => {
@@ -20,17 +54,14 @@ const closeNav = () => {
 
 
 const getLatestNews = async () => {
-    const url = new URL(
-        `https://apissss.netlify.app//top-headlines?country=kr&apiKey=${API_KEY}`
+    url = new URL(
+        `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`
     
     );
-    const response = await fetch(url);
-    const data = await response.json();
-    newsList = data.articles;
-    render ();
+
+    getNews()
     // 우리가 보여줄 건 뉴스리스트  뉴스리스트가 확정되어야지 랜더해야한다. 그래서 newsList 뒤에 랜더
-    
-    console.log("ddd", newsList);
+
     
 }   
 getLatestNews();
@@ -38,28 +69,21 @@ getLatestNews();
 const getNewsByCategory= async (event)=>{
     // 유저가 무슨 카테고리를 눌렀는지 알기위해 만드는 것 밑에 줄 
     const category = event.target.textContent.toLowerCase(); //클릭이벤트시 카테고리를 소문자로 만들어줌 컴퓨터는 소문자 대문자 구별 꼭 해야해서 직접 바꾸기보단 클릭 후 바로 바뀌게 이 함수 쓴다. 
-    console.log("category",category);
-    const url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
+   
+    url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
     );
-    const response = await fetch(url)
-    const data = await response.json()
-    console.log("Data", data)
-    newsList = data.articles;
+   getNews();
 
-    render() ; //여기서 랜더는 위에 만들어준 뉴스리스트를 보여주는것 
+     //여기서 랜더는 위에 만들어준 뉴스리스트를 보여주는것 
     // 그래서 위에 카테고리 눌렀을 때 뉴스를 보여주려면 newslist를 새롭게 정의해야한다.
 
 }
 
 const getNewsByKeyword = async (event)=> {
     const keyword = document.getElementById("search-input").value;
-    console.log("key word", keyword)
-    const url = new URL (`https://newsapi.org/v2/top-headlines?country=kr&q=${keyword}&apiKey=${API_KEY}`)
-    const response = await fetch(url)
-    const data = await response.json()
-    newsList = data.articles
+    url = new URL (`https://newsapi.org/v2/top-headlines?country=kr&q=${keyword}&apiKey=${API_KEY}`)
+    getNews();
 
-    render();
 }
 
 
@@ -123,6 +147,15 @@ const render = () => {
     document.getElementById("news-board").innerHTML = newsHTML
 };
 
+
+//erroro 메시지 보여주는 render 
+const errorRender = (errorMessage) => {
+   const errorHTML =  `<div class="alert alert-danger" role="alert">
+ ${errorMessage}
+</div>`
+
+    document.getElementById("news-board").innerHTML = errorHTML;
+}
 
 
 
