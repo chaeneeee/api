@@ -74,7 +74,8 @@
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 1;
+    z-index: 1;  /*포지션을 이용하여 엘리먼트가 붕 뜨게 되었을 때 자신이 z축으로 어느 위치에 있는지 
+    설정하는 옵션 한요소가 다른 요소의 일부분을 덮으려고 할 때 사용 정수값이 클수록 위에 표시된다. */
     top: 0;
     left: 0;
     background-color: burlywood;
@@ -108,9 +109,32 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    
   }
   
+
+ 
+
   .btn:hover {
     background-color: beige;
     border-radius: 3px;
   }
+/* 보통 600px 보다 작아지면 핸드폰 사이즈  */
+  @media (max-width: 600px){
+    .menus {display: none;} 
+
+  }
+
+
+  .pagination{
+    display: flex;
+    justify-content: center;
+    padding-top: 1em;
+    
+    
+  }
+
+ .page-item{
+    cursor: pointer; 
+    
+ }
