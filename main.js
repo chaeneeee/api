@@ -17,6 +17,7 @@ let page = 1
 const pageSize = 10 // 페이지사이즈랑 그룹사이즈는 어차피 바꾸지않을거니까 const로 부여 
 const groupSize = 5
 
+
 const getNews = async() => {
     try {
         url.searchParams.set("page",page) //페이지라는 파라미터를 뒤에 붙여준다 그 값은  page 다  >> &page=page 로 볼 수 있음
@@ -182,6 +183,9 @@ const openSearchBox = () => {
   };
 openSearchBox()
 
+
+
+
 //페이지네이션만드는 함수
 const paginationRender = () => {
     //totalresults
@@ -197,25 +201,35 @@ const paginationRender = () => {
     let lastPage = pageGroup * groupSize;
     //마지막 페이지 그룹이 그룹사이즈보다 작다? 4개 페이지만 보여줘야지. lastpage = totalpage
     //firstPage
+    
     if(lastPage>totalPages){
         lastPage = totalPages;
     }
     let firstPage = lastPage-(groupSize-1) <=0 ? 1 : lastPage-(groupSize-1)  // <=0보다 작거느나 같으면 1로 출력 그게 아니면 그대로 출력 
         
+    
 
-    let paginationHTML=``;
+    let paginationHTML=`<li class="page-item" onclick="moveToPage(${firstPage})"><a class="page-link" > << </a></li>
+    `;
+    
+    paginationHTML+=`<li class="page-item" onclick="moveToPage(${page-1})"><a class="page-link" > < </a></li>
+    `;
     for(let i =firstPage; i<= lastPage; i++ ){
         paginationHTML+=`<li class="page-item ${
             i===page?"active":""}" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`
     }    //i가 내가 지금보고있는페이지다? 그럼 active로 표시 아니면 말고 "" 빈칸 
 // 1부터 끝까지 page를 만드는거지 배열을 만드는것이 아니다 그래서 배열함수 못쓴다 for문을 써준다
-
+    paginationHTML += `<li class="page-item" onclick=  "moveToPage(${page+1})"><a class="page-link" > > </a></li>`
+    paginationHTML += `<li class="page-item" onclick="moveToPage(${lastPage})"><a class="page-link" > >> </a></li>
+    `;
+    
     document.querySelector(".pagination").innerHTML = paginationHTML;
     // <li class="page-item"><a class="page-link" href="#">Previous</a></li>
     //       <li class="page-item"><a class="page-link" href="#">1</a></li>
     //       <li class="page-item"><a class="page-link" href="#">2</a></li>
     //       <li class="page-item"><a class="page-link" href="#">3</a></li>
     //       <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    
 
 }
 
@@ -224,6 +238,8 @@ const moveToPage=(pageNum) =>{
     page=pageNum //위에서 페이지 1페이지로 let 해놨는데 여기선 이제 유동적으로 원하는 페이지를 로드해야함
     getNews();
 
+   
+    
 
 }
 getLatestNews();
